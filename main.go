@@ -37,6 +37,12 @@ func handleRequest(ac *AsanaClient, w http.ResponseWriter, r *http.Request) {
 	}
 
 	name := r.Form.Get("name")
+
+	if name == "" {
+		w.WriteHeader(400)
+		return
+	}
+
 	log.Print(name)
 
 	err = ac.CreateTask(name, "<body></body>", r.Form.Get("assignee"))
